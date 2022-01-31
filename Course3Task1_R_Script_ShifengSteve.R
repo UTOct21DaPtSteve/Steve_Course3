@@ -459,27 +459,31 @@ IrisTrainSet <- IrisDataSet[IrisTraining_indices,]
 IrisTestSet <- IrisDataSet[-IrisTraining_indices,]
 
 # Build the model
-IrisLinearModel <- lm(Petal.Width ~ Petal.Length, IrisTrainSet)
+IrisLinearModel <- lm(Petal.Length ~ Petal.Width, IrisTrainSet)
 
 summary(IrisLinearModel)
 
 #Call:
-#  lm(formula = Petal.Width ~ Petal.Length, data = IrisTrainSet)
+#  lm(formula = Petal.Length ~ Petal.Width, data = IrisTrainSet)
 #
 #Residuals:
 #  Min       1Q   Median       3Q      Max 
-#-0.43529 -0.13950 -0.00215  0.13493  0.65347 
+#-1.38983 -0.32418  0.01757  0.26909  1.17582 
 #
 #Coefficients:
 #  Estimate Std. Error t value Pr(>|t|)    
-#(Intercept)  -0.33072    0.04691   -7.05 2.11e-10 ***
-#  Petal.Length  0.40730    0.01126   36.18  < 2e-16 ***
+#(Intercept)  1.02721    0.08938   11.49   <2e-16 ***
+#  Petal.Width  2.27609    0.06291   36.18   <2e-16 ***
 #  ---
 #  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #
-#Residual standard error: 0.2066 on 103 degrees of freedom
+#Residual standard error: 0.4885 on 103 degrees of freedom
 #Multiple R-squared:  0.9271,	Adjusted R-squared:  0.9264 
 #F-statistic:  1309 on 1 and 103 DF,  p-value: < 2.2e-16
+
+# Adjusted R-squared is 0.9264, so the regression line fits the data well.
+# p-value < 2.2e-16, which is way less than 0.05, so the relationship
+# between Petal.Length and Petal.Width is very significant.
 
 # Prediction
 IrisPrediction<-predict(IrisLinearModel, IrisTestSet)
@@ -487,15 +491,13 @@ IrisPrediction<-predict(IrisLinearModel, IrisTestSet)
 # View the prediction result
 
 IrisPrediction
-#        1         2         3         5        11        18        19        28        29 
-#0.2395023 0.2395023 0.1987719 0.2395023 0.2802328 0.2395023 0.3616937 0.2802328 0.2395023 
-#       33        36        45        48        49        55        56        57        58 
-#0.2802328 0.1580414 0.4431546 0.2395023 0.2802328 1.5428768 1.5021464 1.5836073 1.0133810 
-#       59        61        62        65        66        68        70        77        83 
-#1.5428768 1.0948419 1.3799550 1.1355723 1.4614159 1.3392246 1.2577637 1.6243377 1.2577637 
-#       84        94        95        98       100       101       104       105       111 
-#1.7465291 1.0133810 1.3799550 1.4206855 1.3392246 2.1131032 1.9501814 2.0316423 1.7465291 
-#      113       116       125       131       133       135       140       141       145 
-#1.9094509 1.8279900 1.9909118 2.1538336 1.9501814 1.9501814 1.8687205 1.9501814 1.9909118 
- 
-
+#       1        2        3        5       11       18       19       28       29       33       36 
+#1.482431 1.482431 1.482431 1.482431 1.482431 1.710040 1.710040 1.482431 1.482431 1.254821 1.482431 
+#      45       48       49       55       56       57       58       59       61       62       65 
+#1.937649 1.482431 1.482431 4.441349 3.986131 4.668958 3.303304 3.986131 3.303304 4.441349 3.986131 
+#      66       68       70       77       83       84       94       95       98      100      101 
+#4.213740 3.303304 3.530913 4.213740 3.758522 4.668958 3.303304 3.986131 3.986131 3.986131 6.717440 
+#     104      105      111      113      116      125      131      133      135      140      141 
+#5.124176 6.034613 5.579395 5.807004 6.262222 5.807004 5.351786 6.034613 4.213740 5.807004 6.489831 
+#     145 
+#6.717440 
